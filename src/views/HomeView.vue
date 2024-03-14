@@ -1,11 +1,16 @@
 <template>
   <div class="home">
-    这是首页
+    <div class="mb-2">
+      掃描結果
+      <button type="button" class="btn btn-primary" @click="getCameras">扫码</button>
+      ====
+      <button type="button" class="btn btn-primary" @click="stop">取消扫码</button>
+    </div>
+    <pre>decodedText: {{ decodedText }}</pre> <br />
+    <pre>decodedResult: {{ decodedResult }}</pre> <br />
   </div>
   <hr/>
-  <button @click="getCameras">扫码</button>  ====  <button @click="stop">取消扫码</button>
   <div style="height: 100%; width: 100%">
-    <!-- <MyHeader :name="'调用摄像头扫码'" left="arrow-left" @goBackEv="$emit('goBack')" /> -->
     <div class="qrcode">
       <div id="reader"></div>
     </div>
@@ -13,9 +18,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { Html5Qrcode } from 'html5-qrcode'
 
 let html5QrCode = null
+const decodedText = ref('')
+const decodedResult = ref('')
 
 const start = () => {
   html5QrCode.start(
@@ -30,6 +38,8 @@ const start = () => {
       // do something when code is read
       console.log('decodedText', decodedText)
       console.log('decodedResult', decodedResult)
+      decodedText.vlaue = decodedText
+      decodedResult.vlaue = decodedResult
       // this.$emit("goBack", decodedText)
     }
   )
